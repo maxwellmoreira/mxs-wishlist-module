@@ -12,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static com.mxs.whishlist.constant.UriConstant.URI_BASE_V1;
-import static com.mxs.whishlist.constant.UriConstant.WISHLISTS;
+import static com.mxs.whishlist.constant.UriConstant.*;
 
 /**
  * Class responsible for representing the controlling layer of the wish list.
@@ -44,7 +43,7 @@ public class WishlistController {
      * @param user identification code
      * @return user wishlist
      */
-    @GetMapping("/user/{user}")
+    @GetMapping(value = GET_WISHLIST_BY_USER)
     public ResponseEntity<GetWishlistResponse> getWishlistByUser(@PathVariable("user") String user) {
         var getWishlistResponse = wishlistService.getWishlistByUser(user);
         return new ResponseEntity<>(getWishlistResponse, HttpStatus.OK);
@@ -57,7 +56,7 @@ public class WishlistController {
      * @param product identification code
      * @return boolean indicating the existence or not of the product in the wish list
      */
-    @GetMapping("/user/{user}/product/{product}/check")
+    @GetMapping(value = CHECK_PRODUCT_IN_WISHLIST)
     public ResponseEntity<CheckProductWishlistResponse> checkProductInWishlist(
             @PathVariable("user") String user, @PathVariable("product") String product) {
         var checkProductWishlistResponse = wishlistService.checkProductInWishlist(user, product);
@@ -71,7 +70,7 @@ public class WishlistController {
      * @param product identification code
      * @return http status of wishlist product removal process
      */
-    @DeleteMapping("/user/{user}/product/{product}")
+    @DeleteMapping(value = REMOVE_PRODUCT_FROM_WISHLIST)
     public ResponseEntity<HttpStatus> removeProductFromWishlist(
             @PathVariable("user") String user, @PathVariable("product") String product) {
         wishlistService.removeProductFromWishlist(user, product);

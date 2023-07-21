@@ -2,6 +2,7 @@ package com.mxs.whishlist.service;
 
 import com.mxs.whishlist.converter.WishlistConverter;
 import com.mxs.whishlist.exception.NotFoundException;
+import com.mxs.whishlist.exception.ProductAlreadyExistsException;
 import com.mxs.whishlist.model.WishlistModel;
 import com.mxs.whishlist.repository.WishlistRepository;
 import com.mxs.whishlist.request.IncludeWishlistRequest;
@@ -14,9 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.mxs.whishlist.constant.MessageConstant.SEARCH_NOT_FOUND;
-import static com.mxs.whishlist.constant.MessageConstant.PRODUCT_NOT_FOUND;
-import static com.mxs.whishlist.constant.MessageConstant.MAXIMUM_LIMIT_WISHLIST;
+import static com.mxs.whishlist.constant.MessageConstant.*;
 
 /**
  * Class responsible for representing the wish list service layer.
@@ -34,6 +33,8 @@ public class WishlistService {
      *
      * @param includeWishlistRequest input information about the product
      * @return output information about the product
+     * @exception NotFoundException The wishlist has reached the maximum limit of 20 items
+     * @exception ProductAlreadyExistsException Product already exists in wishlist
      */
     public IncludeWishlistResponse addToWishlist(IncludeWishlistRequest includeWishlistRequest) {
 
@@ -42,6 +43,13 @@ public class WishlistService {
 
         if (wishList.size() == 20) {
             throw new NotFoundException(MAXIMUM_LIMIT_WISHLIST);
+        }
+
+        var exist = wishList.stream().anyMatch(wishlistModel ->
+                wishlistModel.getProduct().equals(UUID.fromString(includeWishlistRequest.product())));
+
+        if (exist) {
+            throw new ProductAlreadyExistsException(PRODUCT_ALREADY_EXISTS_IN_WISHLIST);
         }
 
         var wishlistModel = wishlistConverter.convertRequestToModel(includeWishlistRequest);
@@ -73,7 +81,7 @@ public class WishlistService {
     /**
      * Method responsible for checking the existence of a product in the wishlist.
      *
-     * @param user    identification code
+     * @param user identification code
      * @param product identification code
      * @return boolean indicating the existence or not of the product in the wish list
      */
@@ -91,7 +99,7 @@ public class WishlistService {
     /**
      * Method responsible for removing a product from the wishlist.
      *
-     * @param user    identification code
+     * @param user identification code
      * @param product identification code
      * @throws NotFoundException the product you were looking for was not found
      */

@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "b746991f-343b-4000-9ffc-ed4534ec39cc",
+		"name": "Wishlist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "720308"
+	},
+	"item": [
+		{
+			"name": "Add a product to a wishlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"91f58cfe-241f-11ee-be56-0242ac120026\",\n    \"product\": \"9dd9edf8-241f-11ee-be56-0242ac120019\",\n    \"category\": \"ELECTRONICS\",\n    \"link\": \"https://www.mercadolivre.com.br/notebook-samsung-book-celeron-4gb-256gb-ssd-156-w11/p/MLB19692109?pdp_filters=deal:MLB779362-1#searchVariation=MLB19692109&position=5&search_layout=grid&type=product&tracking_id=5b22c99b-e866-4504-8723-970cdaf7efce&c_id=/home/promotions-recommendations/element&c_element_order=5&c_uid=0aab5d38-1315-45eb-a40d-81b874e183ec\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/wishlists",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"wishlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's wishlist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/wishlists/user/91f58cfe-241f-11ee-be56-0242ac120026",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"wishlists",
+						"user",
+						"91f58cfe-241f-11ee-be56-0242ac120026"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check the existence of a product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/wishlists/user/91f58cfe-241f-11ee-be56-0242ac120002/product/9dd9edf8-241f-11ee-be56-0242ac120002/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"wishlists",
+						"user",
+						"91f58cfe-241f-11ee-be56-0242ac120002",
+						"product",
+						"9dd9edf8-241f-11ee-be56-0242ac120002",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove product from wishlist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/wishlists/user/91f58cfe-241f-11ee-be56-0242ac120002/product/9dd9edf8-241f-11ee-be56-0242ac120002",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"wishlists",
+						"user",
+						"91f58cfe-241f-11ee-be56-0242ac120002",
+						"product",
+						"9dd9edf8-241f-11ee-be56-0242ac120002"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

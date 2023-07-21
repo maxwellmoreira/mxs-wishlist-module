@@ -2,6 +2,7 @@ package com.mxs.whishlist.config;
 
 import com.mxs.whishlist.dto.ExceptionDto;
 import com.mxs.whishlist.exception.NotFoundException;
+import com.mxs.whishlist.exception.ProductAlreadyExistsException;
 import com.mxs.whishlist.type.ExceptionType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,22 @@ public class ExceptionConfig {
                         .builder()
                         .code(UUID.randomUUID().toString())
                         .message(notFoundException.getMessage())
+                        .exceptionType(ExceptionType.BUSINESS)
+                        .timestamp(LocalDateTime.now())
+                        .build();
+
+        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {ProductAlreadyExistsException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> throwBusinessException(ProductAlreadyExistsException productAlreadyExistsException, WebRequest webRequest) {
+
+        ExceptionDto exceptionDto =
+                ExceptionDto
+                        .builder()
+                        .code(UUID.randomUUID().toString())
+                        .message(productAlreadyExistsException.getMessage())
                         .exceptionType(ExceptionType.BUSINESS)
                         .timestamp(LocalDateTime.now())
                         .build();

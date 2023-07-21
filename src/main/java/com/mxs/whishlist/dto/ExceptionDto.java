@@ -5,6 +5,9 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class responsible for representing the structure of an exception.
+ */
 @Builder
 public record ExceptionDto(
         String code,
